@@ -276,7 +276,6 @@ EOL
             echo "Invalid option. Please select 1, 2, or 3."
         fi
         ;;
-# اجرای گزینه انتخاب شده
     1)
         # 6to4 multi server
         echo "Choose the type of server:"
