@@ -277,7 +277,6 @@ EOL
         fi
         ;;
 # اجرای گزینه انتخاب شده
-case $server_choice in
     1)
         # 6to4 multi server
         echo "Choose the type of server:"
