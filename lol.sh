@@ -416,11 +416,11 @@ EOL
 
             commands=$(cat <<EOF
 ip tunnel add 6to4_To_IR mode sit remote $ipiran local $ipkharej
-ip -6 addr add 4010:389:1z14:e4c::2/64 dev 6to4_To_IR
+ip -6 addr add 2009:499:1d10:e1d::2/64 dev 6to4_To_IR
 ip link set 6to4_To_IR mtu 1480
 ip link set 6to4_To_IR up
 
-ip -6 tunnel add GRE6Tun_To_IR mode ip6gre remote 4010:389:1z14:e4c::1 local 4010:389:1z14:e4c::2
+ip -6 tunnel add GRE6Tun_To_IR mode ip6gre remote 2009:499:1d10:e1d::1 local 2009:499:1d10:e1d::2
 ip addr add 120.14.11.2/30 dev GRE6Tun_To_IR
 ip link set GRE6Tun_To_IR mtu 1436
 ip link set GRE6Tun_To_IR up
@@ -436,11 +436,11 @@ EOF
 
             commands=$(cat <<EOF
 ip tunnel add 6to4_To_KH mode sit remote $ipkharej local $ipiran
-ip -6 addr add 4010:389:1z14:e4c::1/64 dev 6to4_To_KH
+ip -6 addr add 2009:499:1d10:e1d::1/64 dev 6to4_To_KH
 ip link set 6to4_To_KH mtu 1480
 ip link set 6to4_To_KH up
 
-ip -6 tunnel add GRE6Tun_To_KH mode ip6gre remote 4010:389:1z14:e4c::2 local 4010:389:1z14:e4c::1
+ip -6 tunnel add GRE6Tun_To_KH mode ip6gre remote 2009:499:1d10:e1d::2 local 2009:499:1d10:e1d::1
 ip addr add 120.14.11.1/30 dev GRE6Tun_To_KH
 ip link set GRE6Tun_To_KH mtu 1436
 ip link set GRE6Tun_To_KH up
