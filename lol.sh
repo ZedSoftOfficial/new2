@@ -5,9 +5,9 @@ remove_tunnels() {
     echo "Removing tunnels..."
 
     # حذف آدرس‌های IP و تونل‌ها
-    sudo ip addr del 2002:480:1f10:e1f::2/64 dev 6to4_To_IR1 2>/dev/null
+    sudo ip addr del 2004:100:1f14:e1s::2/64 dev 6to4_To_IR1 2>/dev/null
     sudo ip addr del 10.10.10.2/30 dev GRE6Tun_To_IR1 2>/dev/null
-    sudo ip addr del 2002:480:1f10:e1f::3/64 dev 6to4_To_IR2 2>/dev/null
+    sudo ip addr del 2004:100:1f14:e1s::3/64 dev 6to4_To_IR2 2>/dev/null
     sudo ip addr del 10.10.10.4/30 dev GRE6Tun_To_IR2 2>/dev/null
 
     # حذف تونل‌ها
@@ -291,11 +291,11 @@ EOL
 
             commands=$(cat <<EOF
 ip tunnel add 6to4_To_IR1 mode sit remote $ipiran1 local $ipkharej1
-ip -6 addr add 2002:480:1f10:e1f::2/64 dev 6to4_To_IR1
+ip -6 addr add 2004:100:1f14:e1s::2/64 dev 6to4_To_IR1
 ip link set 6to4_To_IR1 mtu 1480
 ip link set 6to4_To_IR1 up
 
-ip -6 tunnel add GRE6Tun_To_IR1 mode ip6gre remote 2002:480:1f10:e1f::1 local 2002:480:1f10:e1f::2
+ip -6 tunnel add GRE6Tun_To_IR1 mode ip6gre remote 2004:100:1f14:e1s::1 local 2004:100:1f14:e1s::2
 ip addr add 10.10.10.2/30 dev GRE6Tun_To_IR1
 ip link set GRE6Tun_To_IR1 mtu 1436
 ip link set GRE6Tun_To_IR1 up
@@ -329,11 +329,11 @@ EOF
 #!/bin/bash
 
 ip tunnel add 6to4_To_KH mode sit remote $ipkharej1 local $ipiran1
-ip -6 addr add 2002:480:1f10:e1f::1/64 dev 6to4_To_KH
+ip -6 addr add 2004:100:1f14:e1s::1/64 dev 6to4_To_KH
 ip link set 6to4_To_KH mtu 1480
 ip link set 6to4_To_KH up
 
-ip -6 tunnel add GRE6Tun_To_KH mode ip6gre remote 2002:480:1f10:e1f::2 local 2002:480:1f10:e1f::1
+ip -6 tunnel add GRE6Tun_To_KH mode ip6gre remote 2004:100:1f14:e1s::2 local 2004:100:1f14:e1s::1
 ip addr add 10.10.10.1/30 dev GRE6Tun_To_KH
 ip link set GRE6Tun_To_KH mtu 1436
 ip link set GRE6Tun_To_KH up
@@ -416,12 +416,12 @@ EOL
 
             commands=$(cat <<EOF
 ip tunnel add 6to4_To_IR mode sit remote $ipiran local $ipkharej
-ip -6 addr add 2009:499:1d10:e1d::2/64 dev 6to4_To_IR
+ip -6 addr add 4010:389:1z14:e4c::2/64 dev 6to4_To_IR
 ip link set 6to4_To_IR mtu 1480
 ip link set 6to4_To_IR up
 
-ip -6 tunnel add GRE6Tun_To_IR mode ip6gre remote 2009:499:1d10:e1d::1 local 2009:499:1d10:e1d::2
-ip addr add 180.18.18.2/30 dev GRE6Tun_To_IR
+ip -6 tunnel add GRE6Tun_To_IR mode ip6gre remote 4010:389:1z14:e4c::1 local 4010:389:1z14:e4c::2
+ip addr add 120.14.11.2/30 dev GRE6Tun_To_IR
 ip link set GRE6Tun_To_IR mtu 1436
 ip link set GRE6Tun_To_IR up
 EOF
@@ -436,18 +436,18 @@ EOF
 
             commands=$(cat <<EOF
 ip tunnel add 6to4_To_KH mode sit remote $ipkharej local $ipiran
-ip -6 addr add 2009:499:1d10:e1d::1/64 dev 6to4_To_KH
+ip -6 addr add 4010:389:1z14:e4c::1/64 dev 6to4_To_KH
 ip link set 6to4_To_KH mtu 1480
 ip link set 6to4_To_KH up
 
-ip -6 tunnel add GRE6Tun_To_KH mode ip6gre remote 2009:499:1d10:e1d::2 local 2009:499:1d10:e1d::1
-ip addr add 180.18.18.1/30 dev GRE6Tun_To_KH
+ip -6 tunnel add GRE6Tun_To_KH mode ip6gre remote 4010:389:1z14:e4c::2 local 4010:389:1z14:e4c::1
+ip addr add 120.14.11.1/30 dev GRE6Tun_To_KH
 ip link set GRE6Tun_To_KH mtu 1436
 ip link set GRE6Tun_To_KH up
 
 sysctl net.ipv4.ip_forward=1
-iptables -t nat -A PREROUTING -p tcp --dport 22 -j DNAT --to-destination 180.18.18.1
-iptables -t nat -A PREROUTING -j DNAT --to-destination 180.18.18.2
+iptables -t nat -A PREROUTING -p tcp --dport 22 -j DNAT --to-destination 120.14.11.1
+iptables -t nat -A PREROUTING -j DNAT --to-destination 120.14.11.2
 iptables -t nat -A POSTROUTING -j MASQUERADE
 EOF
             )
