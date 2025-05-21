@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# تابع برای حذف تونل‌ها و پاک‌سازی فایل rc.local
+# تابع برای حذف تونل‌ها و پک‌سازی فایل rc.local
 remove_tunnels() {
     echo "Removing tunnels..."
 
