@@ -176,12 +176,12 @@ case $server_choice in
             commands=$(cat <<EOF
 ip tunnel add 6to4_To_IR mode sit remote $ipiran local $ipkharej1
 ip -6 addr add 2005:450:1f10:e1f::2/64 dev 6to4_To_IR
-ip link set 6to4_To_IR mtu 1480
+ip link set 6to4_To_IR mtu 1420
 ip link set 6to4_To_IR up
 
 ip -6 tunnel add GRE6Tun_To_IR mode ip6gre remote 2005:450:1f10:e1f::1 local 2005:450:1f10:e1f::2
 ip addr add 10.10.10.2/30 dev GRE6Tun_To_IR
-ip link set GRE6Tun_To_IR mtu 1436
+ip link set GRE6Tun_To_IR mtu 1420
 ip link set GRE6Tun_To_IR up
 EOF
             )
@@ -200,12 +200,12 @@ EOF
 
 ip tunnel add 6to4_To_IR mode sit remote $ipiran local $ipkharej2
 ip -6 addr add 2006:490:1f10:e1f::2/64 dev 6to4_To_IR
-ip link set 6to4_To_IR mtu 1480
+ip link set 6to4_To_IR mtu 1420
 ip link set 6to4_To_IR up
 
 ip -6 tunnel add GRE6Tun_To_IR mode ip6gre remote 2006:490:1f10:e1f::1 local 2006:490:1f10:e1f::2
 ip addr add 10.10.11.2/30 dev GRE6Tun_To_IR
-ip link set GRE6Tun_To_IR mtu 1436
+ip link set GRE6Tun_To_IR mtu 1420
 ip link set GRE6Tun_To_IR up
 
 exit 0
@@ -233,23 +233,23 @@ EOL
 # تنظیمات تونل از اولین سرور خارجی
 ip tunnel add 6to4_To_KH1 mode sit remote $ipkharej1 local $ipiran
 ip -6 addr add 2005:450:1f10:e1f::1/64 dev 6to4_To_KH1
-ip link set 6to4_To_KH1 mtu 1480
+ip link set 6to4_To_KH1 mtu 1420
 ip link set 6to4_To_KH1 up
 
 ip -6 tunnel add GRE6Tun_To_KH1 mode ip6gre remote 2005:450:1f10:e1f::2 local 2005:450:1f10:e1f::1
 ip addr add 10.10.10.1/30 dev GRE6Tun_To_KH1
-ip link set GRE6Tun_To_KH1 mtu 1436
+ip link set GRE6Tun_To_KH1 mtu 1420
 ip link set GRE6Tun_To_KH1 up
 
 # تنظیمات تونل از دومین سرور خارجی
 ip tunnel add 6to4_To_KH2 mode sit remote $ipkharej2 local $ipiran
 ip -6 addr add 2006:490:1f10:e1f::1/64 dev 6to4_To_KH2
-ip link set 6to4_To_KH2 mtu 1480
+ip link set 6to4_To_KH2 mtu 1420
 ip link set 6to4_To_KH2 up
 
 ip -6 tunnel add GRE6Tun_To_KH2 mode ip6gre remote 2006:490:1f10:e1f::2 local 2006:490:1f10:e1f::1
 ip addr add 10.10.11.1/30 dev GRE6Tun_To_KH2
-ip link set GRE6Tun_To_KH2 mtu 1436
+ip link set GRE6Tun_To_KH2 mtu 1420
 ip link set GRE6Tun_To_KH2 up
 
 # فعال کردن فورواردینگ IPv4
@@ -258,8 +258,8 @@ EOL
 
         # اضافه کردن قوانین iptables بر اساس تعداد پورت‌ها
         for i in "${!port_array[@]}"; do
-            echo "iptables -t nat -A PREROUTING -p tcp --dport ${port_array[$i]} -j DNAT --to-destination 10.10.10.1" >> /etc/rc.local
-			echo "iptables -t nat -A PREROUTING -p tcp --dport ${port_array2[$i]} -j DNAT --to-destination 10.10.11.1" >> /etc/rc.local
+            echo "iptables -t nat -A PREROUTING -p tcp --dport ${port_array[$i]} -j DNAT --to-destination 10.10.10.2" >> /etc/rc.local
+			echo "iptables -t nat -A PREROUTING -p tcp --dport ${port_array2[$i]} -j DNAT --to-destination 10.10.11.2" >> /etc/rc.local
         done
 
         # اضافه کردن دستور POSTROUTING و خروج
@@ -292,22 +292,22 @@ EOL
             commands=$(cat <<EOF
 ip tunnel add 6to4_To_IR1 mode sit remote $ipiran1 local $ipkharej1
 ip -6 addr add 2004:100:1f14:e1s::2/64 dev 6to4_To_IR1
-ip link set 6to4_To_IR1 mtu 1480
+ip link set 6to4_To_IR1 mtu 1420
 ip link set 6to4_To_IR1 up
 
 ip -6 tunnel add GRE6Tun_To_IR1 mode ip6gre remote 2004:100:1f14:e1s::1 local 2004:100:1f14:e1s::2
 ip addr add 10.10.10.2/30 dev GRE6Tun_To_IR1
-ip link set GRE6Tun_To_IR1 mtu 1436
+ip link set GRE6Tun_To_IR1 mtu 1420
 ip link set GRE6Tun_To_IR1 up
 
 ip tunnel add 6to4_To_IR2 mode sit remote $ipiran2 local $ipkharej1
 ip -6 addr add 2009:480:1f10:e1f::2/64 dev 6to4_To_IR2
-ip link set 6to4_To_IR2 mtu 1480
+ip link set 6to4_To_IR2 mtu 1420
 ip link set 6to4_To_IR2 up
 
 ip -6 tunnel add GRE6Tun_To_IR2 mode ip6gre remote 2009:480:1f10:e1f::1 local 2009:480:1f10:e1f::2
 ip addr add 10.10.11.2/30 dev GRE6Tun_To_IR2
-ip link set GRE6Tun_To_IR2 mtu 1436
+ip link set GRE6Tun_To_IR2 mtu 1420
 ip link set GRE6Tun_To_IR2 up
 EOF
             )
@@ -330,12 +330,12 @@ EOF
 
 ip tunnel add 6to4_To_KH mode sit remote $ipkharej1 local $ipiran1
 ip -6 addr add 2004:100:1f14:e1s::1/64 dev 6to4_To_KH
-ip link set 6to4_To_KH mtu 1480
+ip link set 6to4_To_KH mtu 1420
 ip link set 6to4_To_KH up
 
 ip -6 tunnel add GRE6Tun_To_KH mode ip6gre remote 2004:100:1f14:e1s::2 local 2004:100:1f14:e1s::1
 ip addr add 10.10.10.1/30 dev GRE6Tun_To_KH
-ip link set GRE6Tun_To_KH mtu 1436
+ip link set GRE6Tun_To_KH mtu 1420
 ip link set GRE6Tun_To_KH up
 
 # فعال کردن فورواردینگ IPv4
@@ -344,7 +344,7 @@ EOL
 
         # اضافه کردن قوانین iptables بر اساس تعداد پورت‌ها
         for i in "${!port_array[@]}"; do
-            echo "iptables -t nat -A PREROUTING -p tcp --dport ${port_array[$i]} -j DNAT --to-destination 10.10.10.1" >> /etc/rc.local
+            echo "iptables -t nat -A PREROUTING -p tcp --dport ${port_array[$i]} -j DNAT --to-destination 10.10.10.2" >> /etc/rc.local
         done
 
         # اضافه کردن دستور POSTROUTING و خروج
@@ -372,12 +372,12 @@ EOL
 
 ip tunnel add 6to4_To_KH mode sit remote $ipkharej1 local $ipiran2
 ip -6 addr add 2009:480:1f10:e1f::1/64 dev 6to4_To_KH
-ip link set 6to4_To_KH mtu 1480
+ip link set 6to4_To_KH mtu 1420
 ip link set 6to4_To_KH up
 
 ip -6 tunnel add GRE6Tun_To_KH mode ip6gre remote 2009:480:1f10:e1f::2 local 2009:480:1f10:e1f::1
 ip addr add 10.10.11.1/30 dev GRE6Tun_To_KH
-ip link set GRE6Tun_To_KH mtu 1436
+ip link set GRE6Tun_To_KH mtu 1420
 ip link set GRE6Tun_To_KH up
 
 # فعال کردن فورواردینگ IPv4
@@ -386,7 +386,7 @@ EOL
 
         # اضافه کردن قوانین iptables بر اساس تعداد پورت‌ها
         for i in "${!port_array[@]}"; do
-            echo "iptables -t nat -A PREROUTING -p tcp --dport ${port_array[$i]} -j DNAT --to-destination 10.10.11.1" >> /etc/rc.local
+            echo "iptables -t nat -A PREROUTING -p tcp --dport ${port_array[$i]} -j DNAT --to-destination 10.10.11.2" >> /etc/rc.local
         done
 
         # اضافه کردن دستور POSTROUTING و خروج
@@ -417,12 +417,12 @@ EOL
             commands=$(cat <<EOF
 ip tunnel add 6to4_To_IR mode sit remote $ipiran local $ipkharej
 ip -6 addr add 2009:499:1d10:e1d::2/64 dev 6to4_To_IR
-ip link set 6to4_To_IR mtu 1480
+ip link set 6to4_To_IR mtu 1420
 ip link set 6to4_To_IR up
 
 ip -6 tunnel add GRE6Tun_To_IR mode ip6gre remote 2009:499:1d10:e1d::1 local 2009:499:1d10:e1d::2
 ip addr add 120.14.11.2/30 dev GRE6Tun_To_IR
-ip link set GRE6Tun_To_IR mtu 1436
+ip link set GRE6Tun_To_IR mtu 1420
 ip link set GRE6Tun_To_IR up
 EOF
             )
@@ -437,12 +437,12 @@ EOF
             commands=$(cat <<EOF
 ip tunnel add 6to4_To_KH mode sit remote $ipkharej local $ipiran
 ip -6 addr add 2009:499:1d10:e1d::1/64 dev 6to4_To_KH
-ip link set 6to4_To_KH mtu 1480
+ip link set 6to4_To_KH mtu 1420
 ip link set 6to4_To_KH up
 
 ip -6 tunnel add GRE6Tun_To_KH mode ip6gre remote 2009:499:1d10:e1d::2 local 2009:499:1d10:e1d::1
 ip addr add 120.14.11.1/30 dev GRE6Tun_To_KH
-ip link set GRE6Tun_To_KH mtu 1436
+ip link set GRE6Tun_To_KH mtu 1420
 ip link set GRE6Tun_To_KH up
 
 sysctl net.ipv4.ip_forward=1
